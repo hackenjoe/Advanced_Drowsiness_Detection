@@ -30,3 +30,6 @@ Nevertheless, the two classifiers do work in principle. If someone puts his head
 Accordingly, we can record in a graph and determine when a fatigue symptom has occurred.
 
 ![result](captured_frames.png)
+
+# Outlook
+Use more training data from others and a GUI for live detection. Feel free to make further suggestions or updates ;)
