@@ -40,7 +40,7 @@ def sound_alarm(path):
     """play an alarm sound"""
     playsound.playsound(path)
 	
-def copy_imgs(train_set = True, participants):
+def copy_imgs(participants, train_set=True):
     """Helper function for copying and centralizing images"""
     x = os.listdir('img\\')
     train_set = False
@@ -66,7 +66,7 @@ def copy_imgs(train_set = True, participants):
             shutil.copy(r'img\\'+str(item), r'cnn_test\1\\')
 			
 			
-def calibration(detector, predictor):
+def calibration(detector, predictor, cap=cv2.VideoCapture(0)):
     """Helper function for determing mean and std"""
     
     font                   = cv2.FONT_HERSHEY_SIMPLEX
@@ -75,7 +75,7 @@ def calibration(detector, predictor):
     fontColor              = (255,255,255)
     lineType               = 2
     data = []
-    cap = cv2.VideoCapture(0)
+    cap = cap
 
     while True:
         # Getting out image by webcam 
