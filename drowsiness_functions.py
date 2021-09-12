@@ -40,33 +40,44 @@ def sound_alarm(path):
     """play an alarm sound"""
     playsound.playsound(path)
 	
-def copy_imgs(participants, train_set=True):
+def copy_imgs(participants, train_set = True):
     """Helper function for copying and centralizing images"""
-    x = os.listdir('img\\')
+    x = [int(x) for x in participants]
     train_set = False
     fileList_a, fileList_d = [], []
-    MIN_T = 0 if train_set else 201
-    MAX_T = 200 if train_set else 240
     for i in x:
-        if float(i) in participants:
-            for j in np.arange(MIN_T, MAX_T + 1):
-                fileList_a.append(str(i)+"\\p"+str(i)+"_s0_"+str(j)+"sec.jpg")
-                fileList_d.append(str(i)+"\\p"+str(i)+"_s10_"+str(j)+"sec.jpg")
+        alert_states = len(glob.glob("img\\"+str(i)+"\\p"+str(i)+"_s0*"))
+        drowsy_states = len(glob.glob("img\\"+str(i)+"\\p"+str(i)+"_s10*"))
+        MIN_T = 0 if train_set else int((alert_states*0.8))+1
+        MAX_T = int((alert_states*0.8)) if train_set else alert_states
+        for j in np.arange(MIN_T, MAX_T):
+            fileList_a.append(str(i)+"\\p"+str(i)+"_s0_"+str(j)+"sec.jpg")
+        MIN_T = 0 if train_set else int((drowsy_states*0.8))+1
+        MAX_T = int((drowsy_states*0.8)) if train_set else drowsy_states
+        for j in np.arange(MIN_T, MAX_T):
+            fileList_d.append(str(i)+"\\p"+str(i)+"_s10_"+str(j)+"sec.jpg")
     
     for item in fileList_a:
+        if not (os.path.isfile(r'img\\'+str(item))):
+            print("Not found", item)
+            continue
         if train_set:
             shutil.copy(r'img\\'+str(item), r'cnn_train\0\\')
         else:
             shutil.copy(r'img\\'+str(item), r'cnn_test\0\\')
     
     for item in fileList_d:
+        if not (os.path.isfile(r'img\\'+str(item))):
+            print("Not found", item)
+            continue
         if train_set:
             shutil.copy(r'img\\'+str(item), r'cnn_train\1\\')
         else:
             shutil.copy(r'img\\'+str(item), r'cnn_test\1\\')
 			
 			
-def calibration(detector, predictor, cap=cv2.VideoCapture(0)):
+            
+def calibration(detector, predictor, cap = cv2.VideoCapture(0)):
     """Helper function for determing mean and std"""
     
     font                   = cv2.FONT_HERSHEY_SIMPLEX
