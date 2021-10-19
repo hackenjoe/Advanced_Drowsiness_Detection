@@ -36,12 +36,12 @@ Some additional training data was added.
 * For the KNN classifier, over 13,235 data series were collected using the metrics MOE, EAR, MAR, Circularity and their normalised forms.
 * Currently, a total of 9,933 images of tired and awake persons are used for the CNN model, with the majority part coming from [UTA](https://sites.google.com/view/utarldd/home) video dataset.
 
-With the new training data, the KNN classifier now achieves an F1 score of $\approx 92%$, which is a significant increase over the original version. With the CNN, on the other hand
-no noticeable difference in terms of accuracy for the test data. It still fluctuates between $98%$ and $99%$, which is a very good value. A closer look at the activation maps showed that the network also often learned the people's surroundings.
+With the new training data, the KNN classifier now achieves an F1 score of **92%**, which is a significant increase over the original version. With the CNN, on the other hand
+no noticeable difference in terms of accuracy for the test data. It still fluctuates between **98%** and **99%**, which is a very good value. A closer look at the activation maps showed that the network also often learned the people's surroundings.
 
 ![drowsiness](drowsiness.png)
 
-A further refinement of the network was to perform a kind of majority voted based classification. Here, the recognition system always collects an average of $20$ images and notes the decisions of the classifications.
+A further refinement of the network was to perform a kind of majority voted based classification. Here, the recognition system always collects an average of **20** images and notes the decisions of the classifications.
 If the majority of these images indicate fatigue, the person is classified as drowsy, otherwise as vigilant. This minimizes any single misclassification and gives a more stable prediction model.
 
 # Outlook
